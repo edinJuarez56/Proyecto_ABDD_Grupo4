@@ -32,3 +32,39 @@ app.post('/personas', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+app.get('/actividad', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('actividad')
+            .select('*');
+
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+app.get('/test', (req, res) => {
+  res.send('OK')
+})
+app.get('/actividades/:id', async (req, res) => {
+  const id = req.params.id
+
+  try {
+    const { data, error } = await supabase
+      .from('actividad')
+      .select('*')
+      .eq('actividad_id', id)
+      .maybeSingle()
+
+    if (error) throw error
+
+    if (!data) {
+      return res.status(404).json({ mensaje: 'Actividad no encontrada' })
+    }
+
+    res.json(data)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
