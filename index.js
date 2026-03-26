@@ -107,18 +107,18 @@ app.get('/actividades/:id', async (req, res) => {
 // UPDATE COMPLETO — Actualizar toda la membresía
 app.put('/membresias/:id', async (req, res) => {
     const id = req.params.id;
-    const { tipo_plan, fecha_inicio, fecha_vencimiento, costo, estado } = req.body;
+    const { tipo, cliente_id, fecha_inicio, fecha_vencimiento, costo, estado } = req.body;
 
-    if (!tipo_plan || !costo || !estado) {
+    if (!tipo || !costo || !estado) {
         return res.status(400).json({
-            error: 'Campos obligatorios faltantes: tipo_plan, costo y estado son requeridos.'
+            error: 'Campos obligatorios faltantes: tipo, costo y estado son requeridos.'
         });
     }
 
     try {
         const { data, error } = await supabase
             .from('membresia')
-            .update({ tipo_plan, fecha_inicio, fecha_vencimiento, costo, estado })
+            .update({ tipo, cliente_id, fecha_inicio, fecha_vencimiento, costo, estado })
             .eq('membresia_id', id)
             .select();
 
@@ -161,14 +161,14 @@ app.patch('/membresias/:id/precio', async (req, res) => {
     }
 });
 
-// UPDATE PARCIAL DE PLAN Y ESTADO — Solo cambia tipo_plan o estado
+// UPDATE PARCIAL DE PLAN Y ESTADO — Solo cambia tipo o estado
 app.patch('/membresias/:id/plan', async (req, res) => {
     const id = req.params.id;
-    const { tipo_plan, estado } = req.body;
+    const { tipo, estado } = req.body;
 
-    if (!tipo_plan && !estado) {
+    if (!tipo && !estado) {
         return res.status(400).json({
-            error: 'Debe enviar al menos tipo_plan o estado para actualizar.'
+            error: 'Debe enviar al menos tipo o estado para actualizar.'
         });
     }
 
@@ -180,14 +180,14 @@ app.patch('/membresias/:id/plan', async (req, res) => {
     }
 
     const planesValidos = ['mensual', 'trimestral', 'premium'];
-    if (tipo_plan && !planesValidos.includes(tipo_plan)) {
+    if (tipo && !planesValidos.includes(tipo)) {
         return res.status(400).json({
-            error: `Tipo de plan inválido. Valores permitidos: ${planesValidos.join(', ')}.`
+            error: `Tipo inválido. Valores permitidos: ${planesValidos.join(', ')}.`
         });
     }
 
     const camposAActualizar = {};
-    if (tipo_plan) camposAActualizar.tipo_plan = tipo_plan;
+    if (tipo) camposAActualizar.tipo = tipo;
     if (estado) camposAActualizar.estado = estado;
 
     try {
@@ -205,4 +205,8 @@ app.patch('/membresias/:id/plan', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });

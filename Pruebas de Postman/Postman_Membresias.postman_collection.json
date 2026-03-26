@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "a0848deb-92c0-46c2-b1ff-a847e87e9688",
+    "name": "Postman_Membresias",
+    "description": "**Esta carpeta contiene las solicitudes API del Proyecto FitHub – Grupo 4. Agrupa los endpoints utilizados para gestionar membresías (**`/membresias`**), específicamente las operaciones de actualización (PUT) para las membresías 1, 2 y 3. Cada solicitud envía una actualización completa a un registro de membresía específico, incluyendo detalles como actividad, sede, entrenador, tipo, nombre, horario y precio. Todas las solicitudes apuntan al servidor de desarrollo supabase local en** **`http://localhost:3000`**.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53473190",
+    "_collection_link": "https://go.postman.co/collection/53473190-a0848deb-92c0-46c2-b1ff-a847e87e9688?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Proyecto_FitHub_Grupo4",
+      "item": [
+        {
+          "name": "PUT Membresía 1",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"membresia_id\": 1,\n  \"cliente_id\": 1,\n  \"tipo\": \"mensual\",\n  \"costo\": 899.00,\n  \"estado\": \"activa\",\n  \"fecha_inicio\": \"2026-03-01\",\n  \"fecha_vencimiento\": \"2026-04-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/membresias/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "membresias",
+                "1"
+              ]
+            },
+            "description": "Generated from cURL: curl -X PUT http://localhost:3000/membresias/1 -H \"Content-Type: application/json\" -d '{\"actividad_id\": 1, \"sede_id\": 1, \"entrenador_id\": 3, \"tipo\": \"clase_grupal\", \"nombre\": \"Yoga Mañana\", \"horario\": \"Lunes y Miércoles 07:00\", \"cupo_maximo\": 15, \"costo_base\": 150.00, \"tipo_plan\": \"premium\", \"fecha_inicio\": \"2026-01-01\", \"fecha_vencimiento\": \"2026-12-31\", \"costo\": 1500.00, \"estado\": \"activa\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Membresía 2",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"membresia_id\": 2,\n  \"cliente_id\": 2,\n  \"tipo\": \"trimestral\",\n  \"costo\": 2400.00,\n  \"estado\": \"activa\",\n  \"fecha_inicio\": \"2026-02-15\",\n  \"fecha_vencimiento\": \"2026-05-15\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/membresias/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "membresias",
+                "2"
+              ]
+            },
+            "description": "Generated from cURL: curl -X PUT http://localhost:3000/membresias/2 -H \"Content-Type: application/json\" -d '{\"actividad_id\": 2, \"sede_id\": 1, \"entrenador_id\": 5, \"tipo\": \"clase_grupal\", \"nombre\": \"Spinning Intenso\", \"horario\": \"Martes y Jueves 18:00\", \"cupo_maximo\": 20, \"costo_base\": 180.00, \"tipo_plan\": \"estandar\", \"fecha_inicio\": \"2026-01-01\", \"fecha_vencimiento\": \"2026-12-31\", \"costo\": 1500.00, \"estado\": \"activa\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Membresía 3",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"membresia_id\": 3,\n  \"cliente_id\": 4,\n  \"tipo\": \"premium\",\n  \"costo\": 4500.00,\n  \"estado\": \"activa\",\n  \"fecha_inicio\": \"2026-01-10\",\n  \"fecha_vencimiento\": \"2026-07-10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/membresias/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "membresias",
+                "3"
+              ]
+            },
+            "description": "Generated from cURL: curl -X PUT http://localhost:3000/membresias/3 -H \"Content-Type: application/json\" -d '{\"actividad_id\": 3, \"sede_id\": 1, \"entrenador_id\": 4, \"tipo\": \"clase_grupal\", \"nombre\": \"Pilates Funcional\", \"horario\": \"Lunes y Viernes 09:00\", \"cupo_maximo\": 12, \"costo_base\": 160.00, \"tipo_plan\": \"basica\", \"fecha_inicio\": \"2026-01-01\", \"fecha_vencimiento\": \"2026-12-31\", \"costo\": 1500.00, \"estado\": \"activa\"}'"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
