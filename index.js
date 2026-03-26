@@ -138,3 +138,53 @@ app.patch('/membresias/:id/precio', async (req, res) => {
     }
 });
 
+// UPDATE PARCIAL DE PLAN Y ESTADO — Solo cambia tipo_plan o estado
+app.patch('/membresias/:id/plan', async (req, res) => {
+    const id = req.params.id;
+    const { tipo_plan, estado } = req.body;
+
+    if (!tipo_plan && !estado) {
+        return res.status(400).json({
+            error: 'Debe enviar al menos tipo_plan o estado para actualizar.'
+        });
+    }
+
+    const estadosValidos = ['activa', 'vencida', 'cancelada'];
+    if (estado && !estadosValidos.includes(estado)) {
+        return res.status(400).json({
+            error: `Estado inválido. Valores permitidos: ${estadosValidos.join(', ')}.`
+        });
+    }
+
+    const planesValidos = ['mensual', 'trimestral', 'premium'];
+    if (tipo_plan && !planesValidos.includes(tipo_plan)) {
+        return res.status(400).json({
+            error: `Tipo de plan inválido. Valores permitidos: ${planesValidos.join(', ')}.`
+        });
+    }
+
+    const camposAActualizar = {};
+    if (tipo_plan) camposAActualizar.tipo_plan = tipo_plan;
+    if (estado) camposAActualizar.estado = estado;
+
+    try {
+        const { data, error } = await supabase
+            .from('membresia')
+            .update(camposAActualizar)
+            .eq('membresia_id', id)
+            .select();
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            return res.status(404).json({ mensaje: 'Membresía no encontrada.' });
+        }
+
+        res.json({
+            mensaje: 'Plan/estado de membresía actualizado exitosamente.',
+            membresia: data[0]
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
