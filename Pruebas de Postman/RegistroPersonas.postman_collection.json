@@ -1,0 +1,123 @@
+{
+  "info": {
+    "_postman_id": "7f15bf9d-2b5c-448d-9440-2d8388941ddf",
+    "name": "New Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46278652",
+    "_collection_link": "https://go.postman.co/collection/46278652-7f15bf9d-2b5c-448d-9440-2d8388941ddf?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "POST Crear persona - Entrenador",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombres\": \"Andres Alejandro\",\r\n    \"apellidos\": \"Gozales Perez\",\r\n    \"email\": \"Andres@gmail.com\",\r\n    \"fecha_nacimiento\": \"2005-04-09\",\r\n    \"dir_calle\": \"Colonia las Mercedes\",\r\n    \"dir_ciudad\": \"San Pedro Sula\",\r\n    \"dir_departamento\": \"Cortes\",\r\n    \"dir_pais\": \"Honduras\",\r\n    \"telefono\": \"9988-7766\",\r\n    \"especialidad\": \"Entrenador de Pesas y Cardio\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/personas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "personas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Crear persona - Cliente",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombres\": \"Pedro Alfredo\",\r\n    \"apellidos\": \"Delcid Bardales\",\r\n    \"email\": \"Alfredo@gmail.com\",\r\n    \"fecha_nacimiento\": \"2005-02-25\",\r\n    \"dir_calle\": \"Colonia las Mercedes\",\r\n    \"dir_ciudad\": \"San Pedro Sula\",\r\n    \"dir_departamento\": \"Cortes\",\r\n    \"dir_pais\": \"Honduras\",\r\n    \"telefono\": \"9990-4567\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/personas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "personas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Crear Persona - Cliente (2)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombres\": \"Eduardo Gomez\",\r\n    \"apellidos\": \"Lopez Zavala\",\r\n    \"email\": \"Eduardo@gmail.com\",\r\n    \"fecha_nacimiento\": \"2005-08-19\",\r\n    \"dir_calle\": \"Colonia el pedregal\",\r\n    \"dir_ciudad\": \"San Pedro Sula\",\r\n    \"dir_departamento\": \"Cortes\",\r\n    \"dir_pais\": \"Honduras\",\r\n    \"telefono\": \"9987-4519\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/personas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "personas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST crear persona-Entrenador.",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombres\": \"Eduardo Daniel\",\r\n    \"apellidos\": \"Colindres Bardales\",\r\n    \"email\": \"Daniel@gmail.com\",\r\n    \"fecha_nacimiento\": \"2002-04-19\",\r\n    \"dir_calle\": \"Colonia el pedregal\",\r\n    \"dir_ciudad\": \"San Pedro Sula\",\r\n    \"dir_departamento\": \"Cortes\",\r\n    \"dir_pais\": \"Honduras\",\r\n    \"telefono\": \"9976-7634\",\r\n    \"especialidad\": \"cross fit basico\"\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/personas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "personas"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
