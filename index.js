@@ -210,3 +210,50 @@ app.patch('/membresias/:id/plan', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
+
+// DELETE - Cancelar reserva
+app.delete('/reservas/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        // Buscar la reserva
+        const { data, error } = await supabase
+            .from('reserva')
+            .select('*')
+            .eq('reserva_id', id)
+            .maybeSingle();
+
+        if (error) throw error;
+
+        if (!data) {
+            return res.status(404).json({ mensaje: 'Reserva no encontrada' });
+        }
+
+        // Validar estado
+        if (data.estado === 'cancelada') {
+            return res.status(400).json({ mensaje: 'La reserva ya está cancelada' });
+        }
+
+        if (data.estado === 'completada') {
+            return res.status(400).json({ mensaje: 'No se puede cancelar una reserva completada' });
+        }
+
+        // Actualizar estado
+        const { data: reservaActualizada, error: errorUpdate } = await supabase
+            .from('reserva')
+            .update({ estado: 'cancelada' })
+            .eq('reserva_id', id)
+            .select();
+
+        if (errorUpdate) throw errorUpdate;
+
+        res.json({
+            mensaje: 'Reserva cancelada correctamente',
+            reserva: reservaActualizada[0]
+        });
+
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});

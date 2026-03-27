@@ -1,0 +1,50 @@
+{
+  "info": {
+    "_postman_id": "09f5f395-617a-4441-a22b-5381805e47f5",
+    "name": "New Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53475076"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/reservas/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "reservas",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar reserva",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/reservas/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "reservas",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
