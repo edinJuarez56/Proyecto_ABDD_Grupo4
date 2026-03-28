@@ -257,3 +257,165 @@ app.delete('/reservas/:id', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+// test conexion con la bd y tabla pagos - Angel
+app.get('/test-db', async (req, res) => {
+  const { data, error } = await supabase
+    .from('pago')
+    .select('*')
+
+  if (error) {
+    return res.status(500).json({ error: error.message })
+  }
+
+  res.json(data)
+})
+
+
+
+function validarPago(body) {
+  const { fecha, monto, metodo, reserva_id, membresia_id } = body
+  const metodosValidos = ['efectivo', 'tarjeta', 'transferencia']
+
+  if (!fecha) {
+    return 'La fecha es obligatoria'
+  }
+
+  if (monto === undefined || monto === null || monto === '') {
+    return 'El monto es obligatorio'
+  }
+
+  if (isNaN(Number(monto)) || Number(monto) <= 0) {
+    return 'El monto debe ser un número mayor a 0'
+  }
+
+  if (!metodo) {
+    return 'El método es obligatorio'
+  }
+
+  if (!metodosValidos.includes(String(metodo).toLowerCase())) {
+    return 'El método debe ser efectivo, tarjeta o transferencia'
+  }
+
+  if (!reserva_id && !membresia_id) {
+    return 'Debe asociar el pago a una reserva o a una membresía'
+  }
+
+  return null
+}
+
+// CREATE -> crear recibo de pago
+app.post('/pagos', async (req, res) => {
+  try {
+    const errorValidacion = validarPago(req.body)
+    if (errorValidacion) {
+      return res.status(400).json({ error: errorValidacion })
+    }
+
+    const { fecha, monto, metodo, referencia, reserva_id, membresia_id } = req.body
+
+    if (reserva_id) {
+      const { data: reserva, error: reservaError } = await supabase
+        .from('reserva')
+        .select('reserva_id')
+        .eq('reserva_id', reserva_id)
+        .single()
+
+      if (reservaError || !reserva) {
+        return res.status(400).json({ error: 'La reserva asociada no existe' })
+      }
+    }
+
+    if (membresia_id) {
+      const { data: membresia, error: membresiaError } = await supabase
+        .from('membresia')
+        .select('membresia_id')
+        .eq('membresia_id', membresia_id)
+        .single()
+
+      if (membresiaError || !membresia) {
+        return res.status(400).json({ error: 'La membresía asociada no existe' })
+      }
+    }
+
+    const nuevoPago = {
+      fecha,
+      monto: Number(monto),
+      metodo: metodo.toLowerCase(),
+      referencia: referencia || null,
+      reserva_id: reserva_id || null,
+      membresia_id: membresia_id || null
+    }
+
+    const { data, error } = await supabase
+      .from('pago')
+      .insert([nuevoPago])
+      .select()
+
+    if (error) {
+      return res.status(500).json({
+        error: 'Error al registrar el pago',
+        detalle: error.message
+      })
+    }
+
+    return res.status(201).json({
+      mensaje: 'Recibo de pago creado correctamente',
+      data
+    })
+  } catch (err) {
+    return res.status(500).json({
+      error: 'Error interno del servidor',
+      detalle: err.message
+    })
+  }
+})
+
+// READ -> listar todos los recibos
+app.get('/pagos', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('pago')
+      .select('*')
+      .order('pago_id', { ascending: true })
+
+    if (error) {
+      return res.status(500).json({
+        error: 'Error al obtener los pagos',
+        detalle: error.message
+      })
+    }
+
+    return res.status(200).json(data)
+  } catch (err) {
+    return res.status(500).json({
+      error: 'Error interno del servidor',
+      detalle: err.message
+    })
+  }
+})
+
+
+// READ -> obtener un recibo por id
+app.get('/pagos/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const { data, error } = await supabase
+      .from('pago')
+      .select('*')
+      .eq('pago_id', id)
+      .single()
+
+    if (error || !data) {
+      return res.status(404).json({ error: 'Recibo de pago no encontrado' })
+    }
+
+    return res.status(200).json(data)
+  } catch (err) {
+    return res.status(500).json({
+      error: 'Error interno del servidor',
+      detalle: err.message
+    })
+  }
+})
